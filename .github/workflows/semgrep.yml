@@ -21,4 +21,7 @@ jobs:
       image: returntocorp/semgrep:latest-nonroot
     steps:
     # - uses: actions/checkout@v4
-    - run: semgrep ci
+      - run: |
+          pwd
+          la -la
+          printenv | sort
