@@ -20,8 +20,7 @@ jobs:
     container:
       image: returntocorp/semgrep:latest-nonroot
     steps:
-    # - uses: actions/checkout@v4
-      - run: |
-          pwd
-          ls -la
-          printenv | sort
+      - uses: actions/checkout@v4
+      - uses: docker://returntocorp/semgrep:latest-nonroot
+        with:
+          args: semgrep ci
