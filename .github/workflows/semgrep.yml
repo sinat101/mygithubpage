@@ -26,6 +26,8 @@ jobs:
             export SEMGREP_PR_ID=${{github.event.pull_request.number}}
           fi
           printenv | sort | egrep "^GITHUB_" | tee .env
+          printenv | sort | egrep "^RUNNER_" | tee -a .env
+          printenv | sort | egrep "^SEMGREP_" | tee -a .env
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
