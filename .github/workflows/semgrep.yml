@@ -20,5 +20,5 @@ jobs:
     container:
       image: returntocorp/semgrep:latest-nonroot
     steps:
-    - uses: actions/checkout@v4
+    # - uses: actions/checkout@v4
     - run: semgrep ci
