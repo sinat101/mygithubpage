@@ -22,5 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: docker://returntocorp/semgrep:latest-nonroot
+        env:
+          HOME: "/src"
         with:
-          args: /bin/bash -c "whoami; pwd; ls -la; printenv |sort"
+          args: /bin/bash -c "whoami; pwd; ls -la; printenv | sort"
