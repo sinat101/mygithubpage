@@ -23,6 +23,6 @@ jobs:
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
-          returntocorp/semgrep:pr-8685-nonroot \
+          returntocorp/semgrep:latest-nonroot \
           /bin/bash -c "whoami; pwd; ls -la; printenv | sort; semgrep ci"
         
