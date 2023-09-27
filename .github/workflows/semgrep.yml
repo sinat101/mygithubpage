@@ -15,20 +15,15 @@ jobs:
   semgrep:
     name: Scan
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: /src
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: returntocorp/semgrep:latest-nonroot
     steps:
       - uses: actions/checkout@v4
       - name: Run Semgrep
         run: |
-          pwd
-          whoami
-          ls -la
-          printenv | sort
+          printenv | egrep "^GITHUB_" >> .env
+          docker run --rm -v "${PWD}:/src" \
+          # --env-file .env \
+          returntocorp/semgrep:pr-8685-nonroot \
+          /bin/bash -c "whoami; pwd; ls -la; printenv | sort"
         
