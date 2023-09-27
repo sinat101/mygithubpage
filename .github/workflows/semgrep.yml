@@ -20,6 +20,7 @@ jobs:
       - name: Run Semgrep
         run: |
           cp /home/runner/work/_temp/_github_workflow/event.json ./.github_event_path.json
+          cat .github_event_path.json
           printenv | sort | egrep "^GITHUB_" | tee .env
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
