@@ -20,7 +20,7 @@ jobs:
       - name: Run Semgrep
         run: |
           cp /home/runner/work/_temp/_github_workflow/event.json ./.github_event_path.json
-          if "${{github.event.pull_request.number}}" != ""; then
+          if [ "${{github.event.pull_request.number}}" != "" ]; then
             echo "Setting up diff scan env vars..."
             export SEMGREP_BASELINE_REF=$GITHUB_BASE_REF
             export SEMGREP_PR_ID=${{github.event.pull_request.number}}
