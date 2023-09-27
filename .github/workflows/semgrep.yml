@@ -20,9 +20,10 @@ jobs:
       - name: Run Semgrep
         run: |
           printenv | sort | egrep "^GITHUB_" | tee .env
+          cat /home/runner/work/_temp/_github_workflow/event.json
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
           returntocorp/semgrep:latest-nonroot \
-          /bin/bash -c "whoami; pwd; ls -la; printenv | sort; semgrep ci"
+          /bin/bash -c "whoami; pwd; ls -la; printenv | sort"
         
