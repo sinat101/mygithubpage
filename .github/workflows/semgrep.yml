@@ -14,15 +14,21 @@ name: Semgrep
 jobs:
   semgrep:
     name: Scan
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: /src
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    # container:
-    #   image: returntocorp/semgrep:latest-nonroot
+    container:
+      image: returntocorp/semgrep:latest-nonroot
     steps:
       - uses: actions/checkout@v4
-      - uses: docker://returntocorp/semgrep:latest-nonroot
-        env:
-          HOME: "/src"
-        with:
-          args: /bin/bash -c "whoami; pwd; ls -la; printenv | sort"
+      - name: Run Semgrep
+        run: |
+          pwd
+          whoami
+          ls -la
+          printenv | sort
+        
