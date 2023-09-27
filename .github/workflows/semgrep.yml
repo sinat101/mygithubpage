@@ -19,12 +19,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Semgrep
         run: |
-          cp /home/runner/work/_temp/_github_workflow/event.json ./event.json
+          cp /home/runner/work/_temp/_github_workflow/event.json ./.github_event_path.json
           printenv | sort | egrep "^GITHUB_" | tee .env
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
-          -e GITHUB_EVENT_PATH="/src/event.json" \
+          -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
           returntocorp/semgrep:latest-nonroot \
           /bin/bash -c "whoami; pwd; ls -la; printenv | sort; semgrep ci"
         
