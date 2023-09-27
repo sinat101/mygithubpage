@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: returntocorp/semgrep:latest-nonroot
+    # container:
+    #   image: returntocorp/semgrep:latest-nonroot
     steps:
       - uses: actions/checkout@v4
       - uses: docker://returntocorp/semgrep:latest-nonroot
