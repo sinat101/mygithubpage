@@ -25,5 +25,5 @@ jobs:
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
           returntocorp/semgrep:pr-8685-nonroot \
-          /bin/bash -c "whoami; pwd; ls -la; printenv | sort"
+          /bin/bash -c "whoami; pwd; ls -la; printenv | sort; semgrep ci"
         
