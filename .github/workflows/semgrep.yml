@@ -23,5 +23,5 @@ jobs:
     # - uses: actions/checkout@v4
       - run: |
           pwd
-          la -la
+          ls -la
           printenv | sort
