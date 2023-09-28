@@ -8,6 +8,7 @@ on:
     - develop
     paths-ignore:
       - '.github/workflows/semgrep.yml'
+      - '.github/workflows/semgrep2.yml'
 name: Semgrep
 jobs:
   semgrep:
