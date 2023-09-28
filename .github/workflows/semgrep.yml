@@ -32,7 +32,7 @@ jobs:
           printenv | sort | egrep "^RUNNER_" | tee -a .env
           printenv | sort | egrep "^SEMGREP_" | tee -a .env
           docker run --rm -v "${PWD}:/src" \
-          --env-file .env \
+          # --env-file .env \
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
           -e SEMGREP_REPO_NAME=$GITHUB_REPOSITORY \
           -e SEMGREP_REPO_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY \
