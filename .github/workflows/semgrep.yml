@@ -36,6 +36,7 @@ jobs:
           -e SEMGREP_REPO_NAME=$GITHUB_REPOSITORY \
           -e SEMGREP_REPO_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY \
           -e SEMGREP_PR_ID=${{github.event.pull_request.number}} \
+          -e SEMGREP_COMMIT=${{github.event.pull_request.head.sha}} \
           -e SEMGREP_BRANCH=$GITHUB_HEAD_REF \
           -e SEMGREP_BASELINE_REF=$GITHUB_BASE_REF \
           returntocorp/semgrep:latest-nonroot \
