@@ -36,6 +36,6 @@ jobs:
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
           -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
           returntocorp/semgrep:latest-nonroot \
-          semgrep ci --debug --no-suppress-errors
+          semgrep ci --verbose --no-suppress-errors
           # /bin/bash -c "whoami; pwd; ls -la; printenv | sort; 
         
