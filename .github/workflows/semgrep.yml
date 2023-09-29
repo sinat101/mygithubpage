@@ -30,6 +30,7 @@ jobs:
           printenv | sort | egrep "^SEMGREP_" | tee -a .env
           whoami
           pwd
+          chown -R 1000:1000 *
           ls -la
           ls -la .git/
           cat /etc/passwd | grep 1000
