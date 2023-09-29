@@ -24,10 +24,10 @@ jobs:
           printenv | sort | egrep "^SEMGREP_" >> .env
           sudo chown -R 1000:1000 .
           docker run --rm -v "${PWD}:/src" \
-            --env-file .env \
-            -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
-            -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
-            returntocorp/semgrep:latest-nonroot \
-            semgrep ci
+          --env-file .env \
+          -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
+          -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
+          returntocorp/semgrep:latest-nonroot \
+          semgrep ci
 
 
