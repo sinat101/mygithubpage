@@ -17,9 +17,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Semgrep
         run: |
-          # Copy the event.json file into the current working directory 
-          # so it gets mounted when we run docker and semgrep can refer 
-          # to it to auto-magically set git metadata.
           cp $GITHUB_EVENT_PATH ./.github_event_path.json
           # Copy over all GitHub Actions related env vars from the runner
           # environment into a file that will get passed into docker so 
@@ -43,3 +40,7 @@ jobs:
             -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
             returntocorp/semgrep:latest-nonroot \
             semgrep ci
+
+                      # Copy the event.json file into the current working directory 
+          # so it gets mounted when we run docker and semgrep can refer 
+          # to it to auto-magically set git metadata.
