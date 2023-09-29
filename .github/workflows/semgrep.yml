@@ -28,7 +28,7 @@ jobs:
           echo "Saving these env vars to file, then passing into docker container."
           printenv | sort | egrep "^GITHUB_" | tee .env
           printenv | sort | egrep "^RUNNER_" | tee -a .env
-          printenv | sort | egrep "^SEMGREP_" | tee -a .env in the current
+          # Recursively set the owner:group of all files in the current
           # working directory to the UID and GID of the semgrep user
           # that the non-root semgrep docker image runs as. When we bind
           # mount the directory to our docker container, it retains the
