@@ -8,7 +8,6 @@ on:
     - develop
     paths-ignore:
       - '.github/workflows/semgrep.yml'
-      - '.github/workflows/semgrep2.yml'
 name: Semgrep
 jobs:
   semgrep:
@@ -18,15 +17,29 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Semgrep
         run: |
+          # Copy the event.json file into the current working directory 
+          # so it gets mounted when we run docker and semgrep can refer 
+          # to it to auto-magically set git metadata.
           cp $GITHUB_EVENT_PATH ./.github_event_path.json
-          printenv | sort | egrep "^GITHUB_" | tee .env
-          printenv | sort | egrep "^RUNNER_" | tee -a .env
-          printenv | sort | egrep "^SEMGREP_" | tee -a .env
+          # Copy over all GitHub Actions related env vars from the runner
+          # environment into a file that will get passed into docker so 
+          # we retain all necessary env vars that semgrep uses for 
+          # auto-magically setting git metadata.
+          echo CI=$CI >> .env
+          printenv | sort | egrep "^GITHUB_" >> .env
+          printenv | sort | egrep "^RUNNER_" >> .env
+          printenv | sort | egrep "^SEMGREP_" >> .env
+          # Recursively set the owner:group of all files in the current
+          # working directory to the UID and GID of the semgrep user
+          # that the non-root semgrep docker image runs as. When we bind
+          # mount the directory to our docker container, it retains the
+          # permissions of the host.
           sudo chown -R 1000:1000 .
+          # Finally, we pass in all the env vars from our file along with
+          # setting the SEMGREP_APP_TOKEN and updated GITHUB_EVENT_PATH.
           docker run --rm -v "${PWD}:/src" \
-          --env-file .env \
-          -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
-          -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
-          returntocorp/semgrep:latest-nonroot \
-          /bin/bash -c "whoami; pwd; ls -la; ls -la .git/; semgrep ci"
-          
+            --env-file .env \
+            -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
+            -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
+            returntocorp/semgrep:latest-nonroot \
+            semgrep ci
