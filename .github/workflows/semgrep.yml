@@ -26,7 +26,7 @@ jobs:
           pwd
           ls -la
           ls -la .git/
-          chown -R 1000:1000 .git/
+          sudo chown -R 1000:1000 *
           ls -la
           ls -la .git/
           cat /etc/passwd | grep 1000
