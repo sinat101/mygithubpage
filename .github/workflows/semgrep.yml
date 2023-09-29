@@ -18,10 +18,10 @@ jobs:
       - name: Run Semgrep
         run: |
           cp $GITHUB_EVENT_PATH ./.github_event_path.json
-          # echo "CI=$CI" >> .env
-          printenv | sort | egrep "^GITHUB_" >> .env
-          printenv | sort | egrep "^RUNNER_" >> .env
-          printenv | sort | egrep "^SEMGREP_" >> .env
+          echo "CI=$CI" >> .env
+          # printenv | sort | egrep "^GITHUB_" >> .env
+          # printenv | sort | egrep "^RUNNER_" >> .env
+          # printenv | sort | egrep "^SEMGREP_" >> .env
           sudo chown -R 1000:1000 .
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
