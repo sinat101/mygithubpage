@@ -28,12 +28,19 @@ jobs:
           printenv | sort | egrep "^GITHUB_" | tee .env
           printenv | sort | egrep "^RUNNER_" | tee -a .env
           printenv | sort | egrep "^SEMGREP_" | tee -a .env
+          whoami
+          pwd
+          ls -la
+          ls -la .git/
+          cat /etc/passwd | grep 1000
+          cat /etc/passwd | grep 1001
+          git fetch origin --force --depth=1 ${{github.event.pull_request.head.sha}}
           docker run --rm -v "${PWD}:/src" \
           --env-file .env \
           -e SEMGREP_APP_TOKEN=${{ secrets.SEMGREP_APP_TOKEN }} \
           -e GITHUB_EVENT_PATH="/src/.github_event_path.json" \
           sinat101/semgrep-debug:latest \
-          /bin/bash -c "whoami; pwd; ls -la; printenv | sort; ls -la .git/"
+          /bin/bash -c "whoami; pwd; ls -la; ls -la .git/; cat /etc/passwd | grep 1000; cat /etc/passwd | grep 1001; git fetch origin --force --depth=1 ${{github.event.pull_request.head.sha}}"
                     
           # semgrep ci --debug --no-suppress-errors
 
