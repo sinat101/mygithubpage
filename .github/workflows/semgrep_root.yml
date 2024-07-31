@@ -1,5 +1,5 @@
 # Name of this GitHub Actions workflow.
-name: Semgrep
+name: Semgrep Root Docker Container
 
 on:
   # Scan changed files in PRs (diff-aware scanning):
@@ -23,7 +23,7 @@ jobs:
 
     container:
       # A Docker image with Semgrep installed. Do not change this.
-      image: semgrep/semgrep
+      image: semgrep/semgrep:latest-nonroot
 
     # Skip any PR created by dependabot to avoid permission issues:
     if: (github.actor != 'dependabot[bot]')
