@@ -8,7 +8,7 @@ on:
   #   - develop
   #   paths-ignore:
   #     - '.github/workflows/semgrep.yml'
-name: Semgrep
+name: Semgrep Non-Root Docker Container
 jobs:
   semgrep:
     name: Scan
